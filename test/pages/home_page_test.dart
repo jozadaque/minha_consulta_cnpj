@@ -8,6 +8,7 @@ void main() {
     CnpjStore state = CnpjStore(CnpjRepository(CnpjUno()));
 
     final result = await state.feacthCompany('46872135000148');
+
     expect(result.name, 'J S SOUSA');
   });
 

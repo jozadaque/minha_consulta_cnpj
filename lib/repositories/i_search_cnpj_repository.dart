@@ -10,6 +10,7 @@ class CnpjRepository {
 
   Future<CompanyModel> featchCompany(String cnpj) async {
     final result = await datasources.featchCompany(cnpj);
+
     final model = CompanyAdapter.fromJsom(result);
     return model;
   }
