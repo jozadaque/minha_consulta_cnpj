@@ -8,24 +8,28 @@ abstract class CnpjDatasource {
 }
 
 class CnpjUno implements CnpjDatasource {
-  final Uno datasource = Uno();
+  final Uno uno;
+
+  CnpjUno(this.uno);
 
   @override
   Future<Map<dynamic, dynamic>> featchCompany(String cnpj) async {
     final response =
-        await datasource.get('https://receitaws.com.br/v1/cnpj/$cnpj');
+        await uno.get('https://brasilapi.com.br/api/cnpj/v1/$cnpj');
     log(response.status.toString());
     return response.data;
   }
 }
 
 class CnpjDio implements CnpjDatasource {
-  final Dio datasource = Dio();
+  final Dio dio;
+
+  CnpjDio(this.dio);
 
   @override
   Future<Map<dynamic, dynamic>> featchCompany(String cnpj) async {
     final response =
-        await datasource.get('https://receitaws.com.br/v1/cnpj/$cnpj');
+        await dio.get('https://brasilapi.com.br/api/cnpj/v1/$cnpj');
     return response.data;
   }
 }

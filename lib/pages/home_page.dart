@@ -1,10 +1,10 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:minha_consulta_cnpj/datasources/cnpj_datasources.dart';
-import 'package:minha_consulta_cnpj/repositories/i_search_cnpj_repository.dart';
+import 'package:minha_consulta_cnpj/services/validations.dart';
 import 'package:minha_consulta_cnpj/states/cnpj_search_state.dart';
 import 'package:minha_consulta_cnpj/stores/cnpj_store.dart';
+import 'package:provider/provider.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -14,11 +14,13 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  final _FormKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
-    TextEditingController controller = TextEditingController();
+    TextEditingController cnpj = TextEditingController();
     final size = MediaQuery.of(context).size;
-    CnpjStore store = CnpjStore(CnpjRepository(CnpjUno()));
+    CnpjStore store = context.watch<CnpjStore>();
 
     return Scaffold(
       appBar: AppBar(
@@ -36,10 +38,24 @@ class _HomePageState extends State<HomePage> {
                   const Text('CNPJ: '),
                   Expanded(
                     flex: 2,
-                    child: TextField(
-                      controller: controller,
-                      decoration:
-                          const InputDecoration(border: OutlineInputBorder()),
+                    child: Form(
+                      key: _FormKey,
+                      child: TextFormField(
+                        keyboardType: TextInputType.number,
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'O Campo CNPJ não pode ser vazio';
+                          } else if (value.length < 14) {
+                            return 'O CNPJ deve ter 14 digitos';
+                          } else if (!Validations.cnpjValidator(value)) {
+                            return 'O CNPJ informado não é valido';
+                          }
+                          return null;
+                        },
+                        controller: cnpj,
+                        decoration:
+                            const InputDecoration(border: OutlineInputBorder()),
+                      ),
                     ),
                   ),
                 ],
@@ -50,7 +66,9 @@ class _HomePageState extends State<HomePage> {
                   padding: const EdgeInsets.symmetric(vertical: 8.0),
                   child: ElevatedButton(
                       onPressed: () {
-                        store.feacthCompany(controller.text);
+                        if (_FormKey.currentState!.validate()) {
+                          store.feacthCompany(cnpj.text);
+                        }
                       },
                       child: const Text('Buscar')),
                 ),
@@ -71,25 +89,14 @@ class _HomePageState extends State<HomePage> {
                     final company = value.company;
                     return SingleChildScrollView(
                       child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text('Nome: ${company.name}'),
-                          Text('Nome: ${company.size}'),
-                          Text('Nome: ${company.status}'),
-                          Text('Nome: ${company.legaceNature}'),
-                          Text('Nome: ${company.openingDate}'),
-                          Text('Nome: ${company.name}'),
-                          Text('Nome: ${company.size}'),
-                          Text('Nome: ${company.status}'),
-                          Text('Nome: ${company.legaceNature}'),
-                          Text('Nome: ${company.openingDate}'),
-                          Text('Nome: ${company.name}'),
-                          Text('Nome: ${company.size}'),
-                          Text('Nome: ${company.status}'),
-                          Text('Nome: ${company.legaceNature}'),
-                          Text('Nome: ${company.openingDate}'),
-                        ],
-                      ),
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text('Nome: ${company.name}'),
+                            Text('Nome: ${company.size}'),
+                            Text('Nome: ${company.status}'),
+                            Text('Nome: ${company.legaceNature}'),
+                            Text('Nome: ${company.openingDate}'),
+                          ]),
                     );
                   }
                   if (value is InitialState) {
