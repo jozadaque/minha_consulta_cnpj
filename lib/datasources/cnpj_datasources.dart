@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:dio/dio.dart';
 import 'package:uno/uno.dart';
 
@@ -16,7 +14,6 @@ class CnpjUno implements CnpjDatasource {
   Future<Map<dynamic, dynamic>> featchCompany(String cnpj) async {
     final response =
         await uno.get('https://brasilapi.com.br/api/cnpj/v1/$cnpj');
-    log(response.status.toString());
     return response.data;
   }
 }
