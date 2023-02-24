@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:minha_consulta_cnpj/repositories/i_search_cnpj_repository.dart';
 import 'package:minha_consulta_cnpj/stores/cnpj_store.dart';
 import 'package:provider/provider.dart';
@@ -26,8 +27,21 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: 'Flutter Demo',
         theme: ThemeData(
-          primarySwatch: Colors.blue,
-        ),
+            primarySwatch: Colors.purple,
+            textTheme: TextTheme(
+                bodyMedium: GoogleFonts.asap(
+                  fontSize: 16,
+                  color: const Color.fromARGB(255, 39, 17, 17),
+                ),
+                labelMedium: GoogleFonts.titilliumWeb(
+                    fontSize: 20,
+                    color: const Color.fromARGB(255, 19, 38, 141),
+                    fontWeight: FontWeight.bold),
+                displayMedium: GoogleFonts.asapCondensed(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                  color: const Color.fromARGB(255, 68, 59, 95),
+                ))),
         home: const HomePage(),
       ),
     );

@@ -17,4 +17,8 @@ class CnpjStore extends ValueNotifier<CNPJSearchStates> {
       value = ExceptionState(e.toString());
     }
   }
+
+  void newSearch() {
+    value = InitialState();
+  }
 }

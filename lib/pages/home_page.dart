@@ -20,6 +20,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void dispose() {
+    cnpj.clear();
     cnpj.dispose();
     super.dispose();
   }
@@ -47,7 +48,19 @@ class _HomePageState extends State<HomePage> {
                   return const Center(child: CircularProgressIndicator());
                 }
                 if (value is ExceptionState) {
-                  return const Center(child: Text('Falha no Pesquisa.'));
+                  return Center(
+                      child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Text('Falha no Pesquisa.'),
+                      ElevatedButton(
+                          onPressed: () {
+                            store.newSearch();
+                            cnpj.clear();
+                          },
+                          child: const Text('Nova Pesquisa'))
+                    ],
+                  ));
                 }
                 if (value is SucessState) {
                   log('Success State');
@@ -66,41 +79,52 @@ class _HomePageState extends State<HomePage> {
                 //    if (value is InitialState) {
                 log('Initial State');
                 return Center(
-                  child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const Text('CNPJ: '),
-                        Form(
-                          key: _formKey,
-                          child: TextFormField(
-                            keyboardType: TextInputType.number,
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return 'O Campo CNPJ não pode ser vazio';
-                              } else if (value.length < 14) {
-                                return 'O CNPJ deve ter 14 digitos';
-                              } else if (!Validations.cnpjValidator(value)) {
-                                return 'O CNPJ informado não é valido';
-                              }
-                              return null;
-                            },
-                            controller: cnpj,
-                            decoration: const InputDecoration(
-                                border: OutlineInputBorder()),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 8.0),
-                          child: ElevatedButton(
-                              onPressed: () {
-                                if (_formKey.currentState!.validate()) {
-                                  store.feacthCompany(cnpj.text);
-                                  //store.feacthCompany('19131243000197');
+                  child: SizedBox(
+                    width: size.width,
+                    child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          // const Text('CNPJ: '),
+                          Image.asset('assets/images/magnifying_glass.png',
+                              height: size.height * 0.35),
+                          Form(
+                            key: _formKey,
+                            child: TextFormField(
+                              keyboardType: TextInputType.number,
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'O Campo CNPJ não pode ser vazio';
+                                } else if (value.length < 14) {
+                                  return 'O CNPJ deve ter 14 digitos';
+                                } else if (!Validations.cnpjValidator(value)) {
+                                  return 'O CNPJ informado não é valido';
                                 }
+                                return null;
                               },
-                              child: const Text('Buscar')),
-                        ),
-                      ]),
+                              controller: cnpj,
+                              maxLength: 14,
+                              decoration: const InputDecoration(
+                                  label: Text('Infome seu CNPJ'),
+                                  floatingLabelBehavior:
+                                      FloatingLabelBehavior.always,
+                                  border: OutlineInputBorder()),
+                            ),
+                          ),
+                          const SizedBox(height: 10),
+                          SizedBox(
+                            width: size.width,
+                            height: size.height * 0.06,
+                            child: ElevatedButton(
+                                onPressed: () {
+                                  if (_formKey.currentState!.validate()) {
+                                    store.feacthCompany(cnpj.text);
+                                    //store.feacthCompany('19131243000197');
+                                  }
+                                },
+                                child: const Text('Buscar')),
+                          ),
+                        ]),
+                  ),
                 );
                 //    }
               },
