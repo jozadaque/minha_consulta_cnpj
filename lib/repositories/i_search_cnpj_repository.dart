@@ -1,5 +1,6 @@
-import 'package:minha_consulta_cnpj/adapter/company_adapter.dart';
+import 'dart:developer';
 
+import '../adapter/company_adapter.dart';
 import '../datasources/cnpj_datasources.dart';
 import '../models/company_model.dart';
 
@@ -9,9 +10,14 @@ class CnpjRepository {
   CnpjRepository(this.datasources);
 
   Future<CompanyModel> featchCompany(String cnpj) async {
-    final result = await datasources.featchCompany(cnpj);
+    try {
+      final result = await datasources.featchCompany(cnpj);
 
-    final model = CompanyAdapter.fromJson(result);
-    return model;
+      final model = CompanyAdapter.fromJson(result);
+      return model;
+    } on Exception catch (e) {
+      log(e.toString());
+      throw Exception('Error: $e');
+    }
   }
 }

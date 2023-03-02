@@ -1,11 +1,13 @@
-import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:minha_consulta_cnpj/models/company_model.dart';
+import 'package:minha_consulta_cnpj/pages/home_page.dart';
+import 'package:minha_consulta_cnpj/stores/cnpj_store.dart';
 
 class ResultPage extends StatelessWidget {
   final CompanyModel company;
+  final CnpjStore store;
 
-  const ResultPage({super.key, required this.company});
+  const ResultPage({super.key, required this.company, required this.store});
 
   String dateConverter(String oldDate) => oldDate
       .split('-')
@@ -19,7 +21,23 @@ class ResultPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(company.name),
+        title: Text(
+          company.name,
+          style: const TextStyle(fontSize: 12),
+        ),
+        leading: IconButton(
+            icon: const Icon(Icons.arrow_back, size: 30),
+            onPressed: () {
+              store.newSearch();
+              Future.delayed(
+                  const Duration(milliseconds: 50),
+                  () => Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute<void>(
+                          builder: (BuildContext context) => const HomePage(),
+                        ),
+                      ));
+            }),
       ),
       body: SizedBox(
         child: SingleChildScrollView(
@@ -36,7 +54,7 @@ class ResultPage extends StatelessWidget {
                   'Situação: ${company.status.toTextFormat()}',
                   'Natureza Juridica: ${company.legaceNatureCode} - ${company.legaceNature}',
                   'Data de Abertura: ${dateConverter(company.openingDate)}',
-                  'Capital Social: ${company.initialMoney}',
+                  'Capital Social: R\$ ${company.initialMoney.toStringAsFixed(2)}',
                 ],
               ),
               const SizedBox(
@@ -186,15 +204,15 @@ extension on String {
   }
 
   String toCepFormat() {
-    if (isEmpty) {
+    if (isEmpty || length <= 7) {
       return this;
     }
 
-    return '${substring(0, 5)}-${substring(5)}';
+    return '${substring(0, 2)}.${substring(2, 5)}-${substring(5)}';
   }
 
   String toPhoneFormat() {
-    if (isEmpty) {
+    if (isEmpty || length <= 9) {
       return this;
     }
 

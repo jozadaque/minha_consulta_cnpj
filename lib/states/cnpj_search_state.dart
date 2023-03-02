@@ -1,4 +1,4 @@
-import 'package:minha_consulta_cnpj/models/company_model.dart';
+import '../models/company_model.dart';
 
 abstract class CNPJSearchStates {}
 

@@ -1,5 +1,7 @@
+
 import 'package:flutter/material.dart';
-import 'package:minha_consulta_cnpj/repositories/i_search_cnpj_repository.dart';
+
+import '../repositories/i_search_cnpj_repository.dart';
 import '../states/cnpj_search_state.dart';
 
 class CnpjStore extends ValueNotifier<CNPJSearchStates> {

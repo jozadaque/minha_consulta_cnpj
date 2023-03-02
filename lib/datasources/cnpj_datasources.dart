@@ -1,4 +1,5 @@
-import 'package:dio/dio.dart';
+import 'dart:developer';
+
 import 'package:uno/uno.dart';
 
 abstract class CnpjDatasource {
@@ -14,19 +15,20 @@ class CnpjUno implements CnpjDatasource {
   Future<Map<dynamic, dynamic>> featchCompany(String cnpj) async {
     final response =
         await uno.get('https://brasilapi.com.br/api/cnpj/v1/$cnpj');
+
     return response.data;
   }
 }
 
-class CnpjDio implements CnpjDatasource {
-  final Dio dio;
+// class CnpjDio implements CnpjDatasource {
+//   final Dio dio;
 
-  CnpjDio(this.dio);
+//   CnpjDio(this.dio);
 
-  @override
-  Future<Map<dynamic, dynamic>> featchCompany(String cnpj) async {
-    final response =
-        await dio.get('https://brasilapi.com.br/api/cnpj/v1/$cnpj');
-    return response.data;
-  }
-}
+//   @override
+//   Future<Map<dynamic, dynamic>> featchCompany(String cnpj) async {
+//     final response =
+//         await dio.get('https://brasilapi.com.br/api/cnpj/v1/$cnpj');
+//     return response.data;
+//   }
+// }

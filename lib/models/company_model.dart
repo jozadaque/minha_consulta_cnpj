@@ -1,4 +1,4 @@
-import 'package:minha_consulta_cnpj/adapter/company_adapter.dart';
+import '../adapter/company_adapter.dart';
 
 class CompanyModel {
   final String name;
