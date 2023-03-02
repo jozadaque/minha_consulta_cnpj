@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:minha_consulta_cnpj/models/company_model.dart';
-import 'package:minha_consulta_cnpj/pages/home_page.dart';
-import 'package:minha_consulta_cnpj/stores/cnpj_store.dart';
+import 'package:minha_consulta_cnpj/app/models/company_model.dart';
+import 'package:minha_consulta_cnpj/app/views/pages/home_page.dart';
+import 'package:minha_consulta_cnpj/app/stores/cnpj_store.dart';
 
 class ResultPage extends StatelessWidget {
   final CompanyModel company;

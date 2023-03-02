@@ -1,4 +1,4 @@
-import 'package:minha_consulta_cnpj/models/company_model.dart';
+import 'package:minha_consulta_cnpj/app/models/company_model.dart';
 
 class CompanyAdapter {
   static CompanyModel fromJson(dynamic json) {

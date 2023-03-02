@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:minha_consulta_cnpj/app_widget.dart';
-import 'pages/splash_screen.dart';
+import 'package:minha_consulta_cnpj/app/app_widget.dart';
+import 'app/views/pages/splash_screen.dart';
 
 void main() async {
   runApp(const SplashScreen());

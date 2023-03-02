@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:minha_consulta_cnpj/pages/home_page.dart';
-import 'package:minha_consulta_cnpj/providers.dart';
+import 'package:minha_consulta_cnpj/app/views/pages/home_page.dart';
+import 'package:minha_consulta_cnpj/app/providers.dart';
 import 'package:provider/provider.dart';
 
 import 'themes.dart';

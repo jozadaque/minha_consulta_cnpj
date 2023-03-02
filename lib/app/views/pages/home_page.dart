@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:minha_consulta_cnpj/pages/result_page.dart';
-import 'package:minha_consulta_cnpj/services/validations.dart';
-import 'package:minha_consulta_cnpj/states/cnpj_search_state.dart';
-import 'package:minha_consulta_cnpj/stores/cnpj_store.dart';
+import 'package:minha_consulta_cnpj/app/views/pages/result_page.dart';
+import 'package:minha_consulta_cnpj/app/services/validations.dart';
+import 'package:minha_consulta_cnpj/app/states/cnpj_search_state.dart';
+import 'package:minha_consulta_cnpj/app/stores/cnpj_store.dart';
 import 'package:provider/provider.dart';
 
 class HomePage extends StatefulWidget {
