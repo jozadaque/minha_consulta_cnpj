@@ -1,34 +1,26 @@
-import 'dart:developer';
-
-import 'package:uno/uno.dart';
+import 'package:dio/dio.dart';
+import '../exceptions/result_exceptions.dart';
 
 abstract class CnpjDatasource {
   Future<dynamic> featchCompany(String cnpj);
 }
 
-class CnpjUno implements CnpjDatasource {
-  final Uno uno;
+class CnpjDio implements CnpjDatasource {
+  final Dio dio;
 
-  CnpjUno(this.uno);
+  CnpjDio(this.dio);
 
   @override
   Future<Map<dynamic, dynamic>> featchCompany(String cnpj) async {
-    final response =
-        await uno.get('https://brasilapi.com.br/api/cnpj/v1/$cnpj');
-
-    return response.data;
+    try {
+      final response =
+          await dio.get('https://brasilapi.com.br/api/cnpj/v1/$cnpj');
+      return response.data;
+    } on DioError catch (e) {
+      if (e.response!.statusCode == 404) {
+        throw Exception404();
+      }
+      throw ExceptionNotFounded();
+    }
   }
 }
-
-// class CnpjDio implements CnpjDatasource {
-//   final Dio dio;
-
-//   CnpjDio(this.dio);
-
-//   @override
-//   Future<Map<dynamic, dynamic>> featchCompany(String cnpj) async {
-//     final response =
-//         await dio.get('https://brasilapi.com.br/api/cnpj/v1/$cnpj');
-//     return response.data;
-//   }
-// }
