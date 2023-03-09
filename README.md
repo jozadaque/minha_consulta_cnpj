@@ -1,4 +1,4 @@
-# minha_consulta_cnpj
+# Minha Busca CNPJ - Consulta CNPJ
 
 This project allows the search for data from companies in Brazil by searching their cnpj.
 
