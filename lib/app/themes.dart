@@ -16,4 +16,6 @@ ThemeData? myThemes = ThemeData(
           fontSize: 16,
           fontWeight: FontWeight.bold,
           color: const Color.fromARGB(255, 68, 59, 95),
-        )));
+        ),
+        headlineSmall: GoogleFonts.asap(
+            fontSize: 17, color: Colors.indigo, fontWeight: FontWeight.bold)));

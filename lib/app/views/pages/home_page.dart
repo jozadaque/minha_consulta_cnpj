@@ -4,6 +4,8 @@ import 'package:minha_consulta_cnpj/app/services/validations.dart';
 import 'package:minha_consulta_cnpj/app/states/cnpj_search_state.dart';
 import 'package:minha_consulta_cnpj/app/stores/cnpj_store.dart';
 import 'package:provider/provider.dart';
+import 'package:brasil_fields/brasil_fields.dart';
+import 'package:flutter/services.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -22,6 +24,9 @@ class _HomePageState extends State<HomePage> {
     cnpj.dispose();
     super.dispose();
   }
+
+  limpaCNPJ(String value) =>
+      value.replaceAll('.', '').replaceAll('/', '').replaceAll('-', '');
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +53,8 @@ class _HomePageState extends State<HomePage> {
                       child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Image.asset('assets/images/error.png'),
+                      Image.asset('assets/images/error.png', width: 100),
+                      const SizedBox(height: 30),
                       Text(
                         'Falha na Pesquisa.',
                         style: Theme.of(context).textTheme.displayMedium,
@@ -102,16 +108,29 @@ class _HomePageState extends State<HomePage> {
                                 validator: (value) {
                                   if (value == null || value.isEmpty) {
                                     return 'O Campo CNPJ não pode ser vazio';
-                                  } else if (value.length < 14) {
-                                    return 'O CNPJ deve ter 14 digitos';
+                                  } else if (value.length < 18) {
+                                    return 'O CNPJ deve ter 18 digitos';
                                   } else if (!Validations.cnpjValidator(
                                       value)) {
-                                    return 'O CNPJ informado não é valido';
+                                    String imputValue = limpaCNPJ(value);
+
+                                    if (!Validations.cnpjValidator(
+                                        imputValue)) {
+                                      return 'O CNPJ informado não é valido';
+                                    }
+
+                                    return null;
                                   }
                                   return null;
                                 },
                                 controller: cnpj,
-                                maxLength: 14,
+                                style:
+                                    Theme.of(context).textTheme.headlineSmall,
+                                maxLength: 18,
+                                inputFormatters: [
+                                  FilteringTextInputFormatter.digitsOnly,
+                                  CnpjInputFormatter(),
+                                ],
                                 decoration: const InputDecoration(
                                     label: Text('Infome seu CNPJ'),
                                     floatingLabelBehavior:
@@ -126,8 +145,8 @@ class _HomePageState extends State<HomePage> {
                               child: ElevatedButton(
                                   onPressed: () {
                                     if (_formKey.currentState!.validate()) {
-                                      store.feacthCompany(cnpj.text);
-                                      //store.feacthCompany('19131243000197');
+                                      String inputValue = limpaCNPJ(cnpj.text);
+                                      store.feacthCompany(inputValue);
                                     }
                                   },
                                   child: const Text('Buscar')),

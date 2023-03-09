@@ -1,4 +1,3 @@
-import 'dart:developer';
 import '../adapter/company_adapter.dart';
 import '../datasources/cnpj_datasources.dart';
 import '../exceptions/result_exceptions.dart';

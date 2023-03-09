@@ -39,6 +39,7 @@ dependencies:
   provider: ^6.0.5
   google_fonts: ^4.0.3
   dio: ^5.0.1
+  brasil_fields: ^1.10.0
 
 dev_dependencies:
   flutter_test:

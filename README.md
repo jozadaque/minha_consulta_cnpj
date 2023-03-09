@@ -1,16 +1,40 @@
 # minha_consulta_cnpj
 
-A new Flutter project.
+This project allows the search for data from companies in Brazil by searching their cnpj.
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+the cnpj consists of a set of 14 characters and uniquely identifies a company created in Brazil.
+To locate the company, the user must inform the company's identity in the cnpj field.
+If the company does not exist, the application will inform the user through an error return screen.
 
-A few resources to get you started if this is your first Flutter project:
+The following tools were used in this project:
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+## Screens
+  
+ ### 1. Initial Page
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+<picture>
+  <img alt="Login Page." src="https://github.com/jozadaque/minha_consulta_cnpj/blob/master/screens/initial_page.png" width="40%">
+</picture>
+  
+   
+  ### 2. Message Error
+
+<picture>
+  <img alt="Message Error." src="https://github.com/jozadaque/minha_consulta_cnpj/blob/master/screens/message_error.png" width="40%">
+</picture>
+
+  ### 2. Page Error
+
+<picture>
+  <img alt="Message Error." src="https://github.com/jozadaque/minha_consulta_cnpj/blob/master/screens/page_error.png" width="40%">
+</picture>
+  
+  
+  ### 3. Result Page
+
+<picture>
+  <img alt="Email and Password Login." src="https://github.com/jozadaque/minha_consulta_cnpj/blob/master/screens/result_page.png" width="40%">
+</picture>
+
